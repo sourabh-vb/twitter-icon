@@ -37,8 +37,14 @@ $rrssb-hackernews:  #ff6600 !default;
 $rrssb-delicious:   #0B79E5 !default;
 $rrssb-vk:          #4d71a9 !default;
 
-// Set the border radius for the buttons
-$rrssb-border-radius: 2px !default;
+// Border radius for the buttons
+$rrssb-border-radius: 0.2em !default;
+// Default font size (will grow for wide screen)
+$rrssb-font-size: 13.5px !default;
+// Button height as a multiple of font size.
+$rrssb-button-height: 2.7em !default;
+// Icon height as a proportion of button height.
+$rrssb-icon-ratio: 70% !default;
 
 $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
@@ -62,11 +68,17 @@ $social-list: (
 );
 
 
-// The meat and potatoes
 .rrssb-buttons {
+  font-size:$rrssb-font-size;
   box-sizing: border-box;
   font-family: $rrssb-main-font;
-  height: 36px;
+
+  /* Height is based on font-size so everything scales in proportion. */
+  height: $rrssb-button-height;
+  
+  /* Line height same as height so that text is centred vertically. */
+  line-height: $rrssb-button-height;
+  
   margin: 0;
   padding: 0;
   width: 100%;
@@ -86,7 +98,6 @@ $social-list: (
     box-sizing: border-box;
     float: left;
     height: 100%;
-    line-height: 13px;
     list-style: none;
     margin: 0;
     padding: 0 2px;
@@ -111,12 +122,11 @@ $social-list: (
       border-radius: $rrssb-border-radius;
       box-sizing: border-box;
       display: block;
-      font-size: 11px;
+      /*@@overflow: hidden;*/
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       font-weight: bold;
       height: 100%;
-      padding: 11px 7px 12px 27px;
       position: relative;
       text-align: center;
       text-decoration: none;
@@ -126,15 +136,18 @@ $social-list: (
 
       .rrssb-icon {
         display: block;
-        left: 10px;
-        padding-top: 9px;
+        box-sizing: border-box;
+        left: 0.5em;
         position: absolute;
-        top: 0;
-        width: 10%;
+        /* 15% margin top and bottom.
+        /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
+        top: (100% - $rrssb-icon-ratio)/2;
+        height: $rrssb-icon-ratio;
+        /* Need explicit width for IE (default is 300px), same as height. */
+        width: ($rrssb-icon-ratio/100%) * $rrssb-button-height;
 
         svg {
-          height: 17px;
-          width: 17px;
+          height: 100%;
 
           path {
             fill: $rrssb-txt;
@@ -144,6 +157,9 @@ $social-list: (
 
       .rrssb-text {
         color: $rrssb-txt;
+        /* Left space to match the width of the icon. */
+        /* Left and right space 1em to leave gaps either side of text. */
+        padding: 0 1em 0 0.7 * $rrssb-button-height + 1em;
       }
 
       &:active {
@@ -153,182 +169,48 @@ $social-list: (
 
     &.small {
       a {
-        padding: 0;
-
+        /* Need to bound the width for width for IE, else it goes to max available. */ 
+        /* However must not fix the width else it prevents shrink. */
+        /* Solution is max-width equal to button height. */
+        max-width: $rrssb-button-height;
+        
         .rrssb-icon {
-          left: auto;
-          margin: 0 auto;
-          overflow: hidden;
           position: relative;
-          top: auto;
+          left: 15%;
+          padding-right: 30%;
           width: 100%;
-        }
-
-        .rrssb-text {
-          visibility: hidden;
-        }
-      }
-    }
-  }
-
-  &.large-format {
-    height: auto;
-
-    li {
-      height: auto;
-
-      // Determine font-size based on number of siblings
-      &:first-child:nth-last-child(1) {
-        a {
-          font-size: 20px; //fallback
-          font-size: 4vw;
-        }
-      }
-
-      &:first-child:nth-last-child(2),
-      &:first-child:nth-last-child(2) ~ li {
-        a {
-          font-size: 16px; //fallback
-          font-size: 2vw;
-        }
-      }
-
-      &:first-child:nth-last-child(3),
-      &:first-child:nth-last-child(3) ~ li {
-        a {
-          font-size: 14px; //fallback
-          font-size: 1.7vw;
-        }
-      }
-
-      &:first-child:nth-last-child(4),
-      &:first-child:nth-last-child(4) ~ li {
-        a {
-          font-size: 13px; //fallback
-          font-size: 1.4vw;
-        }
-      }
-
-      &:first-child:nth-last-child(5),
-      &:first-child:nth-last-child(5) ~ li {
-        a {
-          font-size: 13px; //fallback
-          font-size: 1.2vw;
-        }
-      }
-
-      &:first-child:nth-last-child(6),
-      &:first-child:nth-last-child(6) ~ li {
-        a {
-          font-size: 12px; //fallback
-          font-size: 1.05vw;
-        }
-      }
-
-      &:first-child:nth-last-child(7),
-      &:first-child:nth-last-child(7) ~ li {
-        a {
-          font-size: 11px; //fallback
-          font-size: .9vw;
-        }
-      }
-
-      &:first-child:nth-last-child(8),
-      &:first-child:nth-last-child(8) ~ li {
-        a {
-          font-size: 11px; //fallback
-          font-size: .8vw;
-        }
-      }
-
-      &:first-child:nth-last-child(9),
-      &:first-child:nth-last-child(9) ~ li {
-        a {
-          font-size: 11px; //fallback
-          font-size: .7vw;
-        }
-      }
-
-      &:first-child:nth-last-child(10),
-      &:first-child:nth-last-child(10) ~ li {
-        a {
-          font-size: 11px; //fallback
-          font-size: .6vw;
-        }
-      }
-
-      &:first-child:nth-last-child(11),
-      &:first-child:nth-last-child(11) ~ li {
-        a {
-          font-size: 11px; //fallback
-          font-size: .5vw;
-        }
-      }
-
-      a {
-        backface-visibility: hidden;
-        border-radius: .2em;
-        padding: 8.5% 0 8.5% 12%;
-
-        .rrssb-icon {
-          height: 100%;
-          left: 7%;
-          padding-top: 0;
-          width: 12%;
-
           svg {
-            height: 100%;
-            position: absolute;
-            top: 0;
+            /* Make the SVG shrink if the button is too narrow. */
             width: 100%;
           }
         }
 
         .rrssb-text {
-          backface-visibility: hidden;
+          display: none;
         }
       }
     }
   }
 
   &.small-format {
-    padding-top: 5px;
 
     li {
-      height: 80%;
+      max-width: 25%; /*@@TEMP*/
       padding: 0 1px;
-
-      a {
-        .rrssb-icon {
-          height: 100%;
-          padding-top: 0;
-
-          svg {
-            height: 48%;
-            position: relative;
-            top: 6px;
-            width: 80%;
-          }
-        }
-      }
     }
   }
 
   &.tiny-format {
-    height: 22px;
-    position: relative;
+    height: 2em;
 
     li {
-      padding-right: 7px;
 
       a {
         background-color: transparent;
-        padding: 0;
 
         .rrssb-icon {
-          svg {
-            height: 70%;
-            width: 100%;
+          top: 0;
+          height: 100%;
           }
         }
 
