@@ -16,27 +16,6 @@
 //       \__\/         \__\/
 
 
-// Note: You can and should add or remove buttons from config settings and
-//       $social-list based on your specific needs.
-
-// config settings
-$rrssb-txt:         #fff    !default;
-$rrssb-email:       #0a88ff !default;
-$rrssb-facebook:    #306199 !default;
-$rrssb-tumblr:      #32506d !default;
-$rrssb-linkedin:    #007bb6 !default;
-$rrssb-twitter:     #26c4f1 !default;
-$rrssb-googleplus:  #e93f2e !default;
-$rrssb-reddit:      #8bbbe3 !default;
-$rrssb-youtube:     #df1c31 !default;
-$rrssb-pinterest:   #b81621 !default;
-$rrssb-pocket:      #ed4054 !default;
-$rrssb-github:      #444    !default;
-$rrssb-instagram:   #517fa4 !default;
-$rrssb-hackernews:  #ff6600 !default;
-$rrssb-delicious:   #0B79E5 !default;
-$rrssb-vk:          #4d71a9 !default;
-
 // Border radius for the buttons
 $rrssb-border-radius: 0.2em !default;
 // Default font size (will grow for wide screen)
@@ -48,26 +27,6 @@ $rrssb-icon-ratio: 70% !default;
 
 $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
-// Variable list for all social button colors to be iterated over.
-$social-list: (
-  rrssb-email       $rrssb-email,
-  rrssb-facebook    $rrssb-facebook,
-  rrssb-tumblr      $rrssb-tumblr,
-  rrssb-linkedin    $rrssb-linkedin,
-  rrssb-twitter     $rrssb-twitter,
-  rrssb-googleplus  $rrssb-googleplus,
-  rrssb-youtube     $rrssb-youtube,
-  rrssb-reddit      $rrssb-reddit,
-  rrssb-pinterest   $rrssb-pinterest,
-  rrssb-pocket      $rrssb-pocket,
-  rrssb-github      $rrssb-github,
-  rrssb-instagram   $rrssb-instagram,
-  rrssb-delicious   $rrssb-delicious,
-  rrssb-vk			    $rrssb-vk,
-  rrssb-hackernews  $rrssb-hackernews
-);
-
-
 .rrssb-buttons {
   font-size:$rrssb-font-size;
   box-sizing: border-box;
@@ -75,24 +34,13 @@ $social-list: (
 
   /* Height is based on font-size so everything scales in proportion. */
   height: $rrssb-button-height;
-  
+
   /* Line height same as height so that text is centred vertically. */
   line-height: $rrssb-button-height;
-  
+
   margin: 0;
   padding: 0;
   width: 100%;
-
-  // clearfix buttons for large-format
-  &:after {
-    clear: both;
-  }
-
-  &:before,
-  &:after {
-    content: ' ';
-    display: table;
-  }
 
   li {
     box-sizing: border-box;
@@ -101,21 +49,6 @@ $social-list: (
     list-style: none;
     margin: 0;
     padding: 0 2px;
-
-    // This generates individual button classes for each item in social list on line 39.
-    @each $s-name in $social-list {
-
-      &.#{nth($s-name, 1)} {
-        a {
-          background-color: nth($s-name, 2);
-
-          &:hover {
-            background-color: darken(nth($s-name, 2), 10%);
-          }
-        }
-      }
-
-    } // end @each directive
 
     a {
       background-color: #ccc;
@@ -169,11 +102,11 @@ $social-list: (
 
     &.small {
       a {
-        /* Need to bound the width for IE, else it goes to max available. */ 
+        /* Need to bound the width for IE, else it goes to max available. */
         /* However must not fix the width else it prevents shrink. */
         /* Solution is max-width equal to button height. */
         max-width: $rrssb-button-height;
-        
+
         .rrssb-icon {
           position: relative;
           left: 15%;
@@ -195,7 +128,6 @@ $social-list: (
   &.small-format {
 
     li {
-      max-width: 25%; /*@@TEMP*/
       padding: 0 1px;
     }
   }
@@ -204,7 +136,6 @@ $social-list: (
     height: 2em;
 
     li {
-
       a {
         background-color: transparent;
 
@@ -218,30 +149,6 @@ $social-list: (
           background-color: transparent;
         }
       }
-
-      // This generates individual button classes for each item in social list on line 39.
-      @each $s-name in $social-list {
-
-        &.#{nth($s-name, 1)} {
-          a {
-            .rrssb-icon {
-              svg {
-                path {
-                  fill: nth($s-name, 2);
-                }
-              }
-
-              &:hover {
-	            svg {
-                  path {
-                    fill: darken(nth($s-name, 2), 20%);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }  // end @each directive
     }
   }
 }
