@@ -159,7 +159,7 @@ $social-list: (
         color: $rrssb-txt;
         /* Left space to match the width of the icon. */
         /* Left and right space 1em to leave gaps either side of text. */
-        padding: 0 1em 0 0.7 * $rrssb-button-height + 1em;
+        padding: 0 1em 0 ($rrssb-icon-ratio/100%) * $rrssb-button-height + 1em;
       }
 
       &:active {
@@ -169,7 +169,7 @@ $social-list: (
 
     &.small {
       a {
-        /* Need to bound the width for width for IE, else it goes to max available. */ 
+        /* Need to bound the width for IE, else it goes to max available. */ 
         /* However must not fix the width else it prevents shrink. */
         /* Solution is max-width equal to button height. */
         max-width: $rrssb-button-height;
@@ -211,7 +211,6 @@ $social-list: (
         .rrssb-icon {
           top: 0;
           height: 100%;
-          }
         }
 
         &:hover,
@@ -233,11 +232,9 @@ $social-list: (
               }
 
               &:hover {
-                .rrssb-icon {
-                  svg {
-                    path {
-                      fill: darken(nth($s-name, 2), 20%);
-                    }
+	            svg {
+                  path {
+                    fill: darken(nth($s-name, 2), 20%);
                   }
                 }
               }
