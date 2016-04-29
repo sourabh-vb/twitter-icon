@@ -15,7 +15,8 @@
 //      \  \:\        \  \:\         \__\/
 //       \__\/         \__\/
 
-
+// Button text colour
+$rrssb-txt:         #fff    !default;
 // Border radius for the buttons
 $rrssb-border-radius: 0.2em !default;
 // Default font size (will grow for wide screen)
@@ -26,6 +27,13 @@ $rrssb-button-height: 2.7em !default;
 $rrssb-icon-ratio: 70% !default;
 
 $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+.rrssb-prefix {
+  display: block;
+  float: left;
+  font-size: 14px;
+  margin-right: 10px;
+}
 
 .rrssb-buttons {
   font-size:$rrssb-font-size;
@@ -66,6 +74,11 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
       text-transform: uppercase;
       transition: background-color .2s ease-in-out;
       width: 100%;
+
+      /* Ensure that the bold is retained even on hover. */
+      &:hover, &:active {
+        font-weight: bold;
+      }
 
       .rrssb-icon {
         display: block;
