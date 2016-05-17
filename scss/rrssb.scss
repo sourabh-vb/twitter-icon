@@ -28,15 +28,17 @@ $rrssb-icon-ratio: 70% !default;
 
 $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
+$rrssb-border: (100% - $rrssb-icon-ratio)/2;
+
 .rrssb-prefix {
   display: block;
   float: left;
-  font-size: 14px;
+  font-size: $rrssb-font-size;
   margin-right: 10px;
 }
 
 .rrssb-buttons {
-  font-size:$rrssb-font-size;
+  font-size: $rrssb-font-size;
   box-sizing: border-box;
   font-family: $rrssb-main-font;
 
@@ -52,7 +54,7 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
   li {
     box-sizing: border-box;
-    float: left;
+    display: inline-block;
     height: 100%;
     list-style: none;
     margin: 0;
@@ -87,7 +89,7 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
         position: absolute;
         /* 15% margin top and bottom.
         /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
-        top: (100% - $rrssb-icon-ratio)/2;
+        top: $rrssb-border;
         height: $rrssb-icon-ratio;
         /* Need explicit width for IE (default is 300px), same as height. */
         width: ($rrssb-icon-ratio/100%) * $rrssb-button-height;
@@ -122,8 +124,8 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
         .rrssb-icon {
           position: relative;
-          left: 15%;
-          padding-right: 30%;
+          left: $rrssb-border;
+          padding-right: $rrssb-border*2;
           width: 100%;
           svg {
             /* Make the SVG shrink if the button is too narrow. */
@@ -146,7 +148,6 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
   }
 
   &.tiny-format {
-    height: 2em;
 
     li {
       a {
@@ -155,6 +156,8 @@ $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
         .rrssb-icon {
           top: 0;
           height: 100%;
+          left: 0;
+          padding-right: 0;
         }
 
         &:hover,
