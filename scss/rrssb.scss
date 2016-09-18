@@ -2,7 +2,7 @@
 // Team: @dbox, @joshuatuscan
 // Site: http://www.kurtnoble.com/labs/rrssb
 // Twitter: @therealkni
-
+//
 //        ___           ___
 //       /__/|         /__/\        ___
 //      |  |:|         \  \:\      /  /\
@@ -74,7 +74,7 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
       text-align: center;
       text-decoration: none;
       text-transform: uppercase;
-      transition: background-color .2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
       width: 100%;
 
       /* Ensure that the bold is retained even on hover. */
