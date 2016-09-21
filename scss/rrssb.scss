@@ -19,10 +19,10 @@
 $rrssb-txt:         #fff    !default;
 // Border radius for the buttons
 $rrssb-border-radius: 0.2em !default;
-// Default font size (will grow for wide screen)
-$rrssb-font-size: 13.5px !default;
+// Default font size (can shrink somewhat to fit available width)
+$rrssb-font-size: 14px !default;
 // Button height as a multiple of font size.
-$rrssb-button-height: 2.7em !default;
+$rrssb-button-height: 2.5em !default;
 // Icon height as a proportion of button height.
 $rrssb-icon-ratio: 70% !default;
 
