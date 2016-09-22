@@ -1,19 +1,4 @@
-// Ridiculously Responsive Social Sharing Buttons
-// Team: @dbox, @joshuatuscan
-// Site: http://www.kurtnoble.com/labs/rrssb
-// Twitter: @therealkni
-//
-//        ___           ___
-//       /__/|         /__/\        ___
-//      |  |:|         \  \:\      /  /\
-//      |  |:|          \  \:\    /  /:/
-//    __|  |:|      _____\__\:\  /__/::\
-//   /__/\_|:|____ /__/::::::::\ \__\/\:\__
-//   \  \:\/:::::/ \  \:\~~\~~\/    \  \:\/\
-//    \  \::/~~~~   \  \:\  ~~~      \__\::/
-//     \  \:\        \  \:\          /__/:/
-//      \  \:\        \  \:\         \__\/
-//       \__\/         \__\/
+// Simple Responsive Social Sharing Buttons
 
 // Button text colour
 $rrssb-txt:         #fff    !default;
@@ -33,7 +18,9 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
 .rrssb-prefix {
   display: block;
   float: left;
+  font-family: $rrssb-main-font;
   font-size: $rrssb-font-size;
+  line-height: $rrssb-button-height;
   margin-right: 10px;
 }
 
@@ -42,22 +29,22 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
   box-sizing: border-box;
   font-family: $rrssb-main-font;
 
-  /* Height is based on font-size so everything scales in proportion. */
-  height: $rrssb-button-height;
-
   /* Line height same as height so that text is centred vertically. */
   line-height: $rrssb-button-height;
 
-  margin: 0;
+  margin: 2px 0;
   padding: 0;
   width: 100%;
 
   li {
     box-sizing: border-box;
     display: inline-block;
-    height: 100%;
+
+    /* Height is based on font-size so everything scales in proportion. */
+    height: $rrssb-button-height;
+
     list-style: none;
-    margin: 0;
+    margin: 2px 0;
     padding: 0 2px;
 
     a {
@@ -87,7 +74,7 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
         box-sizing: border-box;
         left: 0.5em;
         position: absolute;
-        /* 15% margin top and bottom.
+        /* Margin top and bottom.
         /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
         top: $rrssb-border;
         height: $rrssb-icon-ratio;
@@ -114,8 +101,13 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
         box-shadow: inset 1px 3px 15px 0 rgba(22, 0, 0, .25);
       }
     }
+  }
 
-    &.small {
+  &.no-label {
+
+    li {
+      padding: 0 1px;
+
       a {
         /* Need to bound the width for IE, else it goes to max available. */
         /* However must not fix the width else it prevents shrink. */
@@ -140,13 +132,7 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
     }
   }
 
-  &.small-format {
-
-    li {
-      padding: 0 1px;
-    }
-  }
-
+  /* @@ Not used
   &.tiny-format {
 
     li {
@@ -166,5 +152,5 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
         }
       }
     }
-  }
+  }*/
 }
