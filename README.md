@@ -16,6 +16,8 @@ Grow the screen, and you see the "large format", and it's different — and we thi
 By default, SRSSB is similar to the large format, but with slightly larger icons.
 - Uniform responsiveness applied simultaneously to all buttons.  In contrast RRSSB hides the labels one-by-one.
 That's not an approach we are familiar with on mainstream websites, and we feel it looks odd, as if there is a bug.
+- Support button prefix text such as "Share this page".  The RRSSB demo page has text like that, but hard-coded into the page
+rather than being part of the library.
 
 ## Performance changes
 - Smaller JS and CSS files for faster download.
@@ -23,3 +25,6 @@ That's not an approach we are familiar with on mainstream websites, and we feel 
 - Smaller page sizes because SVGs are in CSS rather than inline.
 Browser downloads the buttons once for the whole site, rather than once per page and per set of buttons.
 Avoids bloating of page cache with very many copies of SVG data.
+
+## Compatibility changes
+- Compatible with older releases of jQuery - remove specific requirement for jQuery 1.10

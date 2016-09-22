@@ -79,7 +79,7 @@
       }
       else {
         // Set padding to ensure the buttons wrap evenly, for example 6 => 3+3 not 4+2.
-        var padding = containerWidth - buttonsPerRow * buttonWidth;
+        var padding = containerWidth - (buttonsPerRow * buttonWidth);
         $(this).css('padding-right', padding + 'px');
         $(this).css('font-size', '');
       }
