@@ -1,17 +1,18 @@
 {
-  "name": "rrssb",
+  "name": "srssb",
   "version": "1.10.0",
-  "author": "Daniel Box <daniel@kurtnoble.com> (http://github.com/kni-labs)",
+  "author": "Adam Shepherd <adam@albanyweb.co.uk>",
   "contributors": [
+    "(Adam Shepherd <adam@albanyweb.co.uk>)",
     "(Joshua Tuscan <hello@joshuatuscan.com>)",
     "(Daniel Box <daniel@kurtnoble.com>)"
   ],
-  "description": "Ridiculously Responsive Social Sharing Buttons",
+  "description": "Simple Responsive Social Sharing Buttons",
   "main": "js/rrssb.js",
   "keywords": [
-    "ridiculously",
-    "RRSSB",
-    "rrssb",
+    "SRSSB",
+    "srssb",
+    "simple",
     "responsive",
     "sharing",
     "social",
@@ -19,11 +20,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kni-labs/rrssb"
+    "url": "https://github.com/AdamPS/srssb"
   },
   "license": "MIT",
-  "homepage": "http://kurtnoble.com/labs/rrssb/",
-  "readme": "http://kurtnoble.com/labs/rrssb/README.md",
+  "homepage": "http://www.albanyweb.co.uk/srssb",
+  "readme": "https://github.com/AdamPS/srssb/README.md",
   "devDependencies": {
     "gulp": "*",
     "gulp-sass": "*",

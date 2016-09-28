@@ -4,8 +4,7 @@
 
 +(function(window, $, undefined) {
     'use strict';
-    // @@ Use of global
-    var settings = {
+    var defaults = {
       shrink: 0.7,
       minRows: 1,
       maxRows: 2,
@@ -14,35 +13,33 @@
     /*
      * Public Function
      */
-    $.fn.rrssb = function(options) {
-
-      // Settings that $.rrssb() will accept.  @@ Test
-      settings = $.extend(settings, options);
-
-    };
-
-    function rrssbInit() {
-      $('.rrssb-buttons').each(function(index) {
-          $(this).addClass('rrssb-'+(index + 1));
-          var buttonWidth = 0;
-          $('li', this).each(function() {
-              buttonWidth = Math.max(buttonWidth, $(this).innerWidth());
-          });
-          // Set all buttons to match width of largest.
-          // This width stays no matter what sizing, but it may get constrained down by a max-width.
-          // In the case where the buttons are in a float with no fixed width, having the full
-          // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
-          $('li', this).width(buttonWidth);
-          $(this).attr('orig-width', buttonWidth);
-          $(this).attr('orig-height', $('li', this).innerHeight());
-          $(this).attr('orig-font-size', parseFloat($(this).css("font-size")));
+    $.fn.rrssbInit = function(settings) {
+      // Set all buttons to match width of largest.
+      // This width stays no matter what sizing, but it may get constrained down by a max-width.
+      // In the case where the buttons are in a float with no fixed width, having the full
+      // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
+      var buttonWidth = 0;
+      $('li', this).each(function() {
+          buttonWidth = Math.max(buttonWidth, $(this).innerWidth());
       });
+      $('li', this).width(buttonWidth);
 
-      $('.rrssb-buttons').each(rrssbFix);
+      // Store data.
+      $(this).data('settings', $.extend(defaults, settings);
+      $(this).data('orig-width', buttonWidth);
+      $(this).data('orig-height', $('li', this).innerHeight());
+      $(this).data('orig-font-size', parseFloat($(this).css("font-size")));
+
+      rrssbFix();
     };
 
-    function rrssbFix() {
-      var buttonWidth = $(this).attr('orig-width');
+    /*
+     * Main recalculte sizes function.
+     * $(this) points to an instance of ul.rrssb-buttons
+     */
+    var rrssbFix = function() {
+      var settings = $(this).data('settings');
+      var buttonWidth = $(this).data('orig-width');
       var buttons = $('li', this).length;
       // Modern browsers have sub-pixel support, so an element can have a fractional width internally.
       // This can get rounded up in the result of innerWidth, so subtract 1px to get a safe width.
@@ -53,7 +50,7 @@
       // Fix labels.
       if (rowsNeeded > settings.maxRows) {
         $(this).addClass('no-label');
-        buttonWidth = $(this).attr('orig-height');
+        buttonWidth = $(this).data('orig-height');
         buttonsPerRow = Math.floor(containerWidth / (buttonWidth * settings.shrink));
         rowsNeeded = Math.ceil(buttons / buttonsPerRow);
       }
@@ -73,7 +70,7 @@
         // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
         var buttonPadding = $('li', this).innerWidth() - $('li', this).width();
         var scale = (calcWidth - buttonPadding) / (buttonWidth - buttonPadding);
-        var fontSize = $(this).attr('orig-font-size') * scale  * 0.97;
+        var fontSize = $(this).data('orig-font-size') * scale  * 0.96;
         $(this).css('font-size', fontSize + 'px');
         $(this).css('padding-right', '');
       }
@@ -83,7 +80,7 @@
         $(this).css('padding-right', padding + 'px');
         $(this).css('font-size', '');
       }
-    }
+    };
 
     var popupCenter = function(url, title, w, h) {
       // Fixes dual-screen position                         Most browsers      Firefox
@@ -111,7 +108,7 @@
             uniqueId = "Don't call this twice without a uniqueId";
           }
           if (timers[uniqueId]) {
-            clearTimeout (timers[uniqueId]);
+            clearTimeout(timers[uniqueId]);
           }
           timers[uniqueId] = setTimeout(callback, ms);
         };
@@ -120,8 +117,8 @@
     // init load
     $(document).ready(function(){
         /*
-        * Event listners
-        */
+         * Event listners
+         */
 
         $('.rrssb-buttons a.popup').click(function popUp(e) {
             var self = $(this);
@@ -134,7 +131,7 @@
             waitForFinalEvent(function() {$('.rrssb-buttons').each(rrssbFix);}, 200, "finished resizing");
         });
 
-        rrssbInit();
+        $('.rrssb-buttons').each(rrssbInit);
     });
 
 })(window, jQuery);

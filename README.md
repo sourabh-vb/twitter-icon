@@ -25,6 +25,7 @@ rather than being part of the library.
 - Smaller page sizes because SVGs are in CSS rather than inline.
 Browser downloads the buttons once for the whole site, rather than once per page and per set of buttons.
 Avoids bloating of page cache with very many copies of SVG data.
+- Reduced DOM size: store working data as data() not attr().
 
 ## Compatibility changes
 - Compatible with older releases of jQuery - remove specific requirement for jQuery 1.10

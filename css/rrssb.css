@@ -1,1 +1,16 @@
-.rrssb-prefix{display:block;float:left;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:2.5em;margin-right:10px}.rrssb-buttons{font-size:14px;box-sizing:border-box;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;line-height:2.5em;margin:2px 0;padding:0;width:100%}.rrssb-buttons li{box-sizing:border-box;display:inline-block;height:2.5em;list-style:none;margin:2px 0;padding:0 2px}.rrssb-buttons li a{background-color:#ccc;border-radius:0.2em;box-sizing:border-box;display:block;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-weight:bold;height:100%;position:relative;text-align:center;text-decoration:none;text-transform:uppercase;transition:background-color 0.2s ease-in-out;width:100%}.rrssb-buttons li a:hover,.rrssb-buttons li a:active{font-weight:bold}.rrssb-buttons li a .rrssb-icon{display:block;box-sizing:border-box;left:0.5em;position:absolute;top:15%;height:70%;width:1.75em}.rrssb-buttons li a .rrssb-icon svg{height:100%}.rrssb-buttons li a .rrssb-icon svg path{fill:#fff}.rrssb-buttons li a .rrssb-text{color:#fff;padding:0 1em 0 2.75em}.rrssb-buttons li a:active{box-shadow:inset 1px 3px 15px 0 rgba(22,0,0,0.25)}.rrssb-buttons.no-label li{padding:0 1px}.rrssb-buttons.no-label li a{max-width:2.5em}.rrssb-buttons.no-label li a .rrssb-icon{position:relative;left:15%;padding-right:30%;width:100%}.rrssb-buttons.no-label li a .rrssb-icon svg{width:100%}.rrssb-buttons.no-label li a .rrssb-text{display:none}
+.rrssb-prefix{display:block;float:left;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:2.5em;margin-right:10px}
+.rrssb-buttons{font-size:14px;box-sizing:border-box;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;line-height:2.5em;margin:2px 0;padding:0;width:100%}
+.rrssb-buttons li{box-sizing:border-box;display:inline-block;height:2.5em;list-style:none;margin:2px 0;padding:0 2px}
+.rrssb-buttons li a{background-color:#ccc;border-radius:0.2em;box-sizing:border-box;display:block;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-weight:bold;height:100%;position:relative;text-align:center;text-decoration:none;text-transform:uppercase;transition:background-color 0.2s ease-in-out;width:100%}
+.rrssb-buttons li a:hover,.rrssb-buttons li a:active{font-weight:bold}
+.rrssb-buttons li a .rrssb-icon{display:block;box-sizing:border-box;left:0.5em;position:absolute;top:15%;height:70%;width:1.75em}
+.rrssb-buttons li a .rrssb-icon svg{height:100%}
+.rrssb-buttons li a .rrssb-icon svg path{fill:#fff}
+.rrssb-buttons li a .rrssb-text{color:#fff;padding:0 1em 0 2.75em}
+.rrssb-buttons li a:active{box-shadow:inset 1px 3px 15px 0 rgba(22,0,0,0.25)}
+.rrssb-buttons.no-label li{padding:0 1px}
+.rrssb-buttons.no-label li a{max-width:2.5em}
+.rrssb-buttons.no-label li a .rrssb-icon{position:relative;left:15%;padding-right:30%;width:100%}
+.rrssb-buttons.no-label li a .rrssb-icon svg{width:100%}
+.rrssb-buttons.no-label li a .rrssb-text{display:none}
+
