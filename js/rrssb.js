@@ -5,9 +5,11 @@
 +(function(window, $, undefined) {
     'use strict';
     var defaults = {
-      shrink: 0.7,
+      shrink: 0.8,
+      regrow: 0.8,
       minRows: 1,
       maxRows: 2,
+      maxPrefix: 0.3,
     };
 
     /*
@@ -20,22 +22,23 @@
       // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
       var buttonWidth = 0;
       $('li', this).each(function() {
-          buttonWidth = Math.max(buttonWidth, $(this).innerWidth());
+        buttonWidth = Math.max(buttonWidth, $(this).innerWidth());
       });
       $('li', this).width(buttonWidth);
 
       // Store data.
-      $(this).data('settings', $.extend(defaults, settings);
+      $(this).data('settings', $.extend(defaults, settings));
       $(this).data('orig-width', buttonWidth);
       $(this).data('orig-height', $('li', this).innerHeight());
       $(this).data('orig-font-size', parseFloat($(this).css("font-size")));
+      $(this).data('prefix-width', $('.rrssb-prefix', this).innerWidth());
 
-      rrssbFix();
+      rrssbFix.call(this);
     };
 
     /*
      * Main recalculte sizes function.
-     * $(this) points to an instance of ul.rrssb-buttons
+     * $(this) points to an instance of .rrssb
      */
     var rrssbFix = function() {
       var settings = $(this).data('settings');
@@ -44,42 +47,53 @@
       // Modern browsers have sub-pixel support, so an element can have a fractional width internally.
       // This can get rounded up in the result of innerWidth, so subtract 1px to get a safe width.
       var containerWidth = $(this).innerWidth() - 1;
-      var buttonsPerRow = Math.floor(containerWidth / (buttonWidth * settings.shrink));
-      var rowsNeeded = Math.ceil(buttons / buttonsPerRow);
+
+      var prefixWidth = $(this).data('prefix-width');
+      if (prefixWidth > containerWidth * settings.maxPrefix) {
+        prefixWidth = 0;
+      }
+
+      var maxButtonWidth = containerWidth / settings.shrink - prefixWidth;
+      var buttonsPerRow = Math.floor(maxButtonWidth / buttonWidth);
+      var rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
 
       // Fix labels.
       if (rowsNeeded > settings.maxRows) {
         $(this).addClass('no-label');
+        // Without label, button is square so width equals original height.
         buttonWidth = $(this).data('orig-height');
-        buttonsPerRow = Math.floor(containerWidth / (buttonWidth * settings.shrink));
-        rowsNeeded = Math.ceil(buttons / buttonsPerRow);
+        buttonsPerRow = Math.floor(maxButtonWidth / buttonWidth);
+        rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
       }
       else {
         $(this).removeClass('no-label');
       }
 
-      // Fix sizes.
-      // Can't use a percent width as it doesn't work well if the buttons are inside a non-fixed-size container.
+      // Set max width.
+      // Using width doesn't work well if the buttons are inside a non-fixed-size container.
       buttonsPerRow = Math.ceil(buttons / rowsNeeded);
-      var calcWidth = Math.floor(Math.min(buttonWidth, containerWidth / buttonsPerRow));
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
 
-      if (calcWidth < buttonWidth) {
-        // Reduce font size.  Take account of padding, which is a fixed amount.
+      // Fix font size.
+      var desiredWidth = buttonWidth * buttonsPerRow + prefixWidth;
+      var scale = Math.min(1, containerWidth / desiredWidth);
+      if (rowsNeeded > settings.minRows) {
+        scale = Math.min(scale, settings.regrow);
+      }
+
+      if (scale < 1) {
+        // Reduce font size.
         // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
-        var buttonPadding = $('li', this).innerWidth() - $('li', this).width();
-        var scale = (calcWidth - buttonPadding) / (buttonWidth - buttonPadding);
-        var fontSize = $(this).data('orig-font-size') * scale  * 0.96;
+        var fontSize = $(this).data('orig-font-size') * scale * 0.95;
         $(this).css('font-size', fontSize + 'px');
-        $(this).css('padding-right', '');
       }
       else {
-        // Set padding to ensure the buttons wrap evenly, for example 6 => 3+3 not 4+2.
-        var padding = containerWidth - (buttonsPerRow * buttonWidth);
-        $(this).css('padding-right', padding + 'px');
         $(this).css('font-size', '');
       }
+
+      var ulWidth = buttonWidth * buttonsPerRow * scale;
+      $('ul', this).css('max-width', ulWidth + 'px');
     };
 
     var popupCenter = function(url, title, w, h) {
@@ -128,10 +142,10 @@
 
         // resize function
         $(window).resize(function () {
-            waitForFinalEvent(function() {$('.rrssb-buttons').each(rrssbFix);}, 200, "finished resizing");
+            waitForFinalEvent(function() {$('.rrssb').each(rrssbFix);}, 200, "finished resizing");
         });
 
-        $('.rrssb-buttons').each(rrssbInit);
+        $('.rrssb').rrssbInit();
     });
 
 })(window, jQuery);

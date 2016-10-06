@@ -10,125 +10,117 @@ $rrssb-font-size: 14px !default;
 $rrssb-button-height: 2.5em !default;
 // Icon height as a proportion of button height.
 $rrssb-icon-ratio: 70% !default;
+$rrssb-spacing: 0.15em !default;
 
 $rrssb-main-font: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
 $rrssb-border: (100% - $rrssb-icon-ratio)/2;
 
-.rrssb-prefix {
-  display: block;
-  float: left;
-  font-family: $rrssb-main-font;
+.rrssb {
   font-size: $rrssb-font-size;
-  line-height: $rrssb-button-height;
-  margin-right: 10px;
-}
-
-.rrssb-buttons {
-  font-size: $rrssb-font-size;
-  box-sizing: border-box;
   font-family: $rrssb-main-font;
 
-  /* Line height same as height so that text is centred vertically. */
-  line-height: $rrssb-button-height;
-
-  margin: 2px 0;
-  padding: 0;
-  width: 100%;
+  .rrssb-buttons {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: $rrssb-spacing 0;
+    padding: 0;
+    width: 100%;
+  }
 
   li {
     box-sizing: border-box;
     display: inline-block;
+    padding: $rrssb-spacing;
+  }
 
-    /* Height is based on font-size so everything scales in proportion. */
-    height: $rrssb-button-height;
+  a {
+    background-color: #ccc;
+    border-radius: $rrssb-border-radius;
+    box-sizing: border-box;
+    display: block;
+    /*@@overflow: hidden;*/
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease-in-out;
+    width: 100%;
 
-    list-style: none;
-    margin: 2px 0;
-    padding: 0 2px;
-
-    a {
-      background-color: #ccc;
-      border-radius: $rrssb-border-radius;
-      box-sizing: border-box;
-      display: block;
-      /*@@overflow: hidden;*/
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
+    /* Ensure that the bold is retained even on hover. */
+    &:hover, &:active {
       font-weight: bold;
-      height: 100%;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: background-color 0.2s ease-in-out;
-      width: 100%;
-
-      /* Ensure that the bold is retained even on hover. */
-      &:hover, &:active {
-        font-weight: bold;
-      }
-
-      .rrssb-icon {
-        display: block;
-        box-sizing: border-box;
-        left: 0.5em;
-        position: absolute;
-        /* Margin top and bottom.
-        /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
-        top: $rrssb-border;
-        height: $rrssb-icon-ratio;
-        /* Need explicit width for IE (default is 300px), same as height. */
-        width: ($rrssb-icon-ratio/100%) * $rrssb-button-height;
-
-        svg {
-          height: 100%;
-
-          path {
-            fill: $rrssb-txt;
-          }
-        }
-      }
-
-      .rrssb-text {
-        color: $rrssb-txt;
-        /* Left space to match the width of the icon. */
-        /* Left and right space 1em to leave gaps either side of text. */
-        padding: 0 1em 0 ($rrssb-icon-ratio/100%) * $rrssb-button-height + 1em;
-      }
-
-      &:active {
-        box-shadow: inset 1px 3px 15px 0 rgba(22, 0, 0, .25);
-      }
     }
+
+    &:active {
+      box-shadow: inset 1px 3px 15px 0 rgba(22, 0, 0, .25);
+    }
+  }
+
+  .rrssb-icon {
+    display: block;
+    box-sizing: border-box;
+    left: 0.5em;
+    position: absolute;
+    /* Margin top and bottom.
+    /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
+    top: $rrssb-border;
+    height: $rrssb-icon-ratio;
+    /* Need explicit width for IE (default is 300px), same as height. */
+    width: ($rrssb-icon-ratio/100%) * $rrssb-button-height;
+
+    svg {
+      height: 100%;
+    }
+
+    path {
+      fill: $rrssb-txt;
+    }
+  }
+
+  .rrssb-text {
+    color: $rrssb-txt;
+    /* Left space to match the width of the icon. */
+    /* Left and right space 1em to leave gaps either side of text. */
+    padding: 0 1em 0 ($rrssb-icon-ratio/100%) * $rrssb-button-height + 1em;
+
+    /* Line height based on font-size so everything scales in proportion. */
+    /* This will in turn set height large enough to contain text giving text that is centred vertically. */
+    line-height: $rrssb-button-height;
+  }
+
+  .rrssb-prefix {
+    display: inline-block;
+    padding-right: 0.6em;
   }
 
   &.no-label {
 
-    li {
-      padding: 0 1px;
+    a {
+      /* Label has gone, so can't rely on line height. */
+      /* Need to bound the width for IE, else it goes to max available. */
+      width: $rrssb-button-height;
+      height: $rrssb-button-height;
+    }
 
-      a {
-        /* Need to bound the width for IE, else it goes to max available. */
-        /* However must not fix the width else it prevents shrink. */
-        /* Solution is max-width equal to button height. */
-        max-width: $rrssb-button-height;
+    .rrssb-icon {
+      position: relative;
+      left: $rrssb-border;
+      padding-right: $rrssb-border*2;
+      width: 100%;
 
-        .rrssb-icon {
-          position: relative;
-          left: $rrssb-border;
-          padding-right: $rrssb-border*2;
-          width: 100%;
-          svg {
-            /* Make the SVG shrink if the button is too narrow. */
-            width: 100%;
-          }
-        }
-
-        .rrssb-text {
-          display: none;
-        }
+      svg {
+        /* Make the SVG shrink if the button is too narrow. */
+        width: 100%;
       }
+    }
+
+    .rrssb-text {
+      display: none;
     }
   }
 
