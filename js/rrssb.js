@@ -57,14 +57,15 @@
         prefixWidth: $('.rrssb-prefix', this).innerWidth(),
       };
 
-      // Set all buttons to match width of largest.
-      // This width stays no matter what sizing, but it may get constrained down by a max-width.
-      // In the case where the buttons are in a float with no fixed width, having the full
-      // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
       $('li', this).each(function() {
         orig.width = Math.max(orig.width, $(this).innerWidth());
         orig.buttons++;
       });
+
+      // Set all buttons to match width of largest.
+      // This width stays no matter what sizing, but it may get constrained down by a max-width.
+      // In the case where the buttons are in a float with no fixed width, having the full
+      // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
       $('li', this).width(orig.width);
 
       $(this).data('orig', orig);
@@ -100,6 +101,26 @@
       // This can get rounded up in the result of innerWidth, so subtract 1px to get a safe width.
       var containerWidth = $(this).innerWidth() - 1;
 
+      // The container can't shrink below the size of one button.
+      // For small containers make sure we have small buttons.
+      // After changing this we need to let the browser recalculate then run again.
+      var mini = (containerWidth <= orig.width);
+      var lastMini = $(this).data('mini');
+      if (mini != lastMini) {
+        $(this).data('mini', mini);
+
+        if (mini) {
+          $('li', this).width('');
+          $(this).addClass('no-label');
+        }
+        else {
+          $('li', this).width(orig.width);
+        }
+
+        timer = setTimeout(fixAll, 1);
+        return;
+      }
+
       var prefixWidth = orig.prefixWidth;
       if (prefixWidth > containerWidth * settings.maxPrefix) {
         prefixWidth = 0;
@@ -114,7 +135,7 @@
         $(this).addClass('no-label');
         // Without label, button is square so width equals original height.
         buttonWidth = orig.height;
-        buttonsPerRow = Math.floor(maxButtonWidth / buttonWidth);
+        buttonsPerRow = Math.max(1, Math.floor(maxButtonWidth / buttonWidth));
         rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
       }
       else {
