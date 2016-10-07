@@ -15,7 +15,7 @@
     /**
      * Public function to configure all sets of buttons on the page.
      */
-    window.rrssbConfig = function(settings) {
+    window.rrssbConfigAll = function(settings) {
       $('.rrssb').each(function(){
          $(this).rrssbConfig(settings);
       });
@@ -27,11 +27,13 @@
      */
     $.fn.rrssbConfig = function(settings) {
       var checkedSettings = $.extend({}, defaults);
-      if (settings.shrink >= 0.2 && settings.shrink <= 1) checkedSettings.shrink = settings.shrink;
-      if (settings.regrow >= 0.2 && settings.regrow <= 1) checkedSettings.regrow = settings.regrow;
-      if (settings.minRows >= 1 && settings.minRows <= 99) checkedSettings.minRows = settings.minRows;
-      if (settings.maxRows >= 1 && settings.maxRows <= 99) checkedSettings.maxRows = settings.maxRows;
-      if (settings.maxPrefix >= 0 && settings.shrink <= 0.8) checkedSettings.maxPrefix = settings.maxPrefix;
+      if (settings) {
+        if (settings.shrink >= 0.2 && settings.shrink <= 1) checkedSettings.shrink = settings.shrink;
+        if (settings.regrow >= 0.2 && settings.regrow <= 1) checkedSettings.regrow = settings.regrow;
+        if (settings.minRows >= 1 && settings.minRows <= 99) checkedSettings.minRows = settings.minRows;
+        if (settings.maxRows >= 1 && settings.maxRows <= 99) checkedSettings.maxRows = settings.maxRows;
+        if (settings.maxPrefix >= 0 && settings.shrink <= 0.8) checkedSettings.maxPrefix = settings.maxPrefix;
+      }
       $(this).data('settings', checkedSettings);
       rrssbFix.call(this);
     };
@@ -70,6 +72,15 @@
     }
 
     /**
+     * Fix all sets of buttons on the page.
+     */
+    var fixAll = function(initial) {
+      $('.rrssb').each(function(){
+          rrssbFix.call(this);
+      });
+    }
+
+    /**
      * Main recalculte sizes function.
      * $(this) points to an instance of .rrssb
      */
@@ -78,7 +89,7 @@
       if (!orig) {
         orig = rrssbInit.call(this);
       }
-      else if (!initial) {
+      else if (initial) {
         return;
       }
       var settings = $(this).data('settings');
@@ -156,18 +167,13 @@
       }
     };
 
-    var waitForFinalEvent = (function () {
-        var timers = {};
-        return function (callback, ms, uniqueId) {
-          if (!uniqueId) {
-            uniqueId = "Don't call this twice without a uniqueId";
-          }
-          if (timers[uniqueId]) {
-            clearTimeout(timers[uniqueId]);
-          }
-          timers[uniqueId] = setTimeout(callback, ms);
-        };
-    })();
+    var timer;
+    var delayedFixAll = function () {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(fixAll, 200);
+    };
 
     /**
      * Ready function
@@ -175,15 +181,11 @@
     $(document).ready(function(){
         // Register event listners
         $('.rrssb-buttons a.popup').click(function popUp(e) {
-            var self = $(this);
-            popupCenter(self.attr('href'), self.find('.rrssb-text').html(), 580, 470);
+            popupCenter($(this).attr('href'), $(this).find('.rrssb-text').html(), 580, 470);
             e.preventDefault();
         });
 
-        $(window).resize(function () {
-            waitForFinalEvent(function() {$('.rrssb').each(rrssbFix);}, 200, "finished resizing");
-        });
-
+        $(window).resize(delayedFixAll);
     });
 
 })(window, jQuery);
