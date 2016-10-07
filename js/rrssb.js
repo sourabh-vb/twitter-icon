@@ -16,7 +16,9 @@
      * Public function to configure all sets of buttons on the page.
      */
     window.rrssbConfig = function(settings) {
-      $('.rrssb').rrssbConfig(settings);
+      $('.rrssb').each(function(){
+         $(this).rrssbConfig(settings);
+      });
     }
 
     /**
@@ -24,7 +26,13 @@
      * $(this) points to an instance of .rrssb
      */
     $.fn.rrssbConfig = function(settings) {
-      $(this).data('settings', $.extend(defaults, settings));
+      var checkedSettings = $.extend({}, defaults);
+      if (settings.shrink >= 0.2 && settings.shrink <= 1) checkedSettings.shrink = settings.shrink;
+      if (settings.regrow >= 0.2 && settings.regrow <= 1) checkedSettings.regrow = settings.regrow;
+      if (settings.minRows >= 1 && settings.minRows <= 99) checkedSettings.minRows = settings.minRows;
+      if (settings.maxRows >= 1 && settings.maxRows <= 99) checkedSettings.maxRows = settings.maxRows;
+      if (settings.maxPrefix >= 0 && settings.shrink <= 0.8) checkedSettings.maxPrefix = settings.maxPrefix;
+      $(this).data('settings', checkedSettings);
       rrssbFix.call(this);
     };
 
