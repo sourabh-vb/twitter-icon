@@ -122,7 +122,6 @@
       }
 
       // Set max width.
-      // Using width doesn't work well if the buttons are inside a non-fixed-size container.
       buttonsPerRow = Math.ceil(buttons / rowsNeeded);
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
@@ -144,8 +143,16 @@
         $(this).css('font-size', '');
       }
 
-      var ulWidth = buttonWidth * buttonsPerRow * scale;
-      $('ul', this).css('max-width', ulWidth + 'px');
+      desiredWidth *= scale;
+      if (containerWidth > desiredWidth) {
+         // Set padding to ensure the buttons wrap evenly, for example 6 => 3+3 not 4+2.
+         // Use a percentage to ensure that we don't have padding > size after a radical rescale.
+        var padding = Math.floor(10000 * (containerWidth - desiredWidth) / containerWidth) / 100;
+        $(this).css('padding-right', padding + '%');
+      }
+      else {
+        $(this).css('padding-right', '');
+      }
     };
 
     var popupCenter = function(url, title, w, h) {
