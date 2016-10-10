@@ -10,7 +10,7 @@
       regrow: {min: 0.2, max: 1, default: 0.8},
       minRows: {min: 1, max: 99, default: 1},
       maxRows: {min: 1, max: 99, default: 2},
-      maxPrefix: {min: 0, max: 0.8, default: 0.3},
+      prefixReserve: {min: 0, max: 0.8, default: 0.3},
     };
 
     /**
@@ -116,12 +116,13 @@
         return;
       }
 
+      // Calculate widths.
+      var availWidth = containerWidth / settings.shrink;
       var prefixWidth = orig.prefixWidth * settings.size;
-      if (prefixWidth > containerWidth * settings.maxPrefix) {
-        prefixWidth = 0;
+      if (prefixWidth <= containerWidth * settings.prefixReserve) {
+        availWidth -= prefixWidth;
       }
 
-      var availWidth = containerWidth / settings.shrink - prefixWidth;
       var buttonsPerRow = Math.floor(availWidth / buttonWidth);
       var rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
 
@@ -142,8 +143,14 @@
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
 
-      // Fix font size.
+      // Test if we can fit the prefix inline.  This may be the case even if we didn't reserve space for it.
       var desiredWidth = buttonWidth * buttonsPerRow + prefixWidth;
+      if (desiredWidth > availWidth) {
+        desiredWidth -= prefixWidth;
+        prefixWidth = 0;
+      }
+
+      // Fix font size.
       var scale = Math.min(1, containerWidth / desiredWidth);
       if (rowsNeeded > settings.minRows) {
         scale = Math.min(scale, settings.regrow);
@@ -157,18 +164,33 @@
       }
       $(this).css('font-size', fontSize + 'px');
 
-      desiredWidth *= scale;
+      // Fix prefix.
+      if (prefixWidth) {
+         // Use a percentage so a small container doesn't inherit a huge pad after a radical rescale.
+        var prefixWidth = Math.floor(10000 * prefixWidth / desiredWidth) / 100;
+        $('.rrssb-buttons', this).css('padding-left', prefixWidth + '%');
+        // Use absolute position to force onto same line - otherwise the buttons try to expand to full width and so start on a new line.
+        $('.rrssb-prefix', this).css('position', 'absolute');
+        var prefixHeight = rowsNeeded * orig.height / orig.fontSize;
+        $('.rrssb-prefix', this).css('line-height', prefixHeight + 'em');
+      }
+      else {
+        $('.rrssb-buttons', this).css('padding-left', '');
+        $('.rrssb-prefix', this).css('position', '');
+        $('.rrssb-prefix', this).css('line-height', '');
+      }
+
+      // Set padding to constrain buttons to desired width and they wrap evenly, for example 6 => 3+3 not 4+2.
+      // Use a percentage so a small container doesn't inherit a huge pad after a radical rescale.
+      // Allow a little extra to ensure rounding error doesn't accidentally spread buttons onto extra lines.
+      desiredWidth *= scale * 1.02;
       if (containerWidth > desiredWidth) {
-         // Set padding to ensure the buttons wrap evenly, for example 6 => 3+3 not 4+2.
-         // Use a percentage to ensure that we don't have padding > size after a radical rescale.
         var padding = Math.floor(10000 * (containerWidth - desiredWidth) / containerWidth) / 100;
         $(this).css('padding-right', padding + '%');
       }
       else {
         $(this).css('padding-right', '');
       }
-
-      //$(this).css('padding-left', prefixWidth * scale + 'px');
     };
 
     var popupCenter = function(url, title, w, h) {
@@ -212,7 +234,7 @@
 
         // Add another ready callback that will be called after all others.
         // Configure any buttons that haven't already been configured.
-        $(document).ready(configAll);
+        $(document).ready(function() { rrssbConfigAll(); });
     });
 
 })(window, jQuery);

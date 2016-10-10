@@ -1,1 +1,95 @@
-.rrssb{font-size:14px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.rrssb .rrssb-buttons{box-sizing:border-box;display:inline-block;margin:0.15em 0;padding:0;width:100%}.rrssb li{box-sizing:border-box;display:inline-block;padding:0.15em}.rrssb a{background-color:#ccc;border-radius:0.2em;box-sizing:border-box;display:block;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-weight:bold;height:100%;position:relative;text-align:center;text-decoration:none;text-transform:uppercase;transition:background-color 0.2s ease-in-out;width:100%}.rrssb a:hover,.rrssb a:active{font-weight:bold}.rrssb a:active{box-shadow:inset 1px 3px 15px 0 rgba(22,0,0,0.25)}.rrssb .rrssb-icon{display:block;box-sizing:border-box;left:0.5em;position:absolute;top:15%;height:70%;width:1.75em}.rrssb .rrssb-icon svg{height:100%}.rrssb .rrssb-icon path{fill:#fff}.rrssb .rrssb-text{color:#fff;padding:0 1em 0 2.75em;line-height:2.5em}.rrssb .rrssb-prefix{display:inline-block;padding-right:0.6em}.rrssb.no-label a{width:2.5em;height:2.5em}.rrssb.no-label .rrssb-icon{position:relative;left:15%;padding-right:30%;width:100%}.rrssb.no-label .rrssb-icon svg{width:100%}.rrssb.no-label .rrssb-text{display:none}
+.rrssb {
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* @@ Not used
+  &.tiny-format {
+
+    li {
+      a {
+        background-color: transparent;
+
+        .rrssb-icon {
+          top: 0;
+          height: 100%;
+          left: 0;
+          padding-right: 0;
+        }
+
+        &:hover,
+        &:active {
+          background-color: transparent;
+        }
+      }
+    }
+  }*/ }
+  .rrssb .rrssb-buttons {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0.15em 0;
+    padding: 0;
+    width: 100%; }
+  .rrssb li {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.15em; }
+  .rrssb a {
+    background-color: #ccc;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    display: block;
+    /*@@overflow: hidden;*/
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease-in-out;
+    width: 100%;
+    /* Ensure that the bold is retained even on hover. */ }
+    .rrssb a:hover, .rrssb a:active {
+      font-weight: bold; }
+    .rrssb a:active {
+      box-shadow: inset 1px 3px 15px 0 rgba(22, 0, 0, 0.25); }
+  .rrssb .rrssb-icon {
+    display: block;
+    box-sizing: border-box;
+    left: 0.5em;
+    position: absolute;
+    /* Margin top and bottom.
+    /* But we need to specify a height rather than top+bottom else the icon disappears when there is no label. */
+    top: 15%;
+    height: 70%;
+    /* Need explicit width for IE (default is 300px), same as height. */
+    width: 1.75em; }
+    .rrssb .rrssb-icon svg {
+      height: 100%; }
+    .rrssb .rrssb-icon path {
+      fill: #fff; }
+  .rrssb .rrssb-text {
+    color: #fff;
+    /* Left space to match the width of the icon. */
+    /* Left and right space 1em to leave gaps either side of text. */
+    padding: 0 1em 0 2.75em;
+    /* Line height based on font-size so everything scales in proportion. */
+    /* This will in turn set height large enough to contain text giving text that is centred vertically. */
+    line-height: 2.5em; }
+  .rrssb .rrssb-prefix {
+    padding-right: 0.6em; }
+  .rrssb.no-label a {
+    /* Label has gone, so can't rely on line height. */
+    /* Need to bound the width for IE, else it goes to max available. */
+    width: 2.5em;
+    height: 2.5em; }
+  .rrssb.no-label .rrssb-icon {
+    position: relative;
+    left: 15%;
+    padding-right: 30%;
+    width: 100%; }
+    .rrssb.no-label .rrssb-icon svg {
+      /* Make the SVG shrink if the button is too narrow. */
+      width: 100%; }
+  .rrssb.no-label .rrssb-text {
+    display: none; }
