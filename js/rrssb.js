@@ -167,8 +167,8 @@
       // Fix prefix.
       if (prefixWidth) {
          // Use a percentage so a small container doesn't inherit a huge pad after a radical rescale.
-        var prefixWidth = Math.floor(10000 * prefixWidth / desiredWidth) / 100;
-        $('.rrssb-buttons', this).css('padding-left', prefixWidth + '%');
+        var prefixPad = Math.floor(10000 * prefixWidth / desiredWidth) / 100;
+        $('.rrssb-buttons', this).css('padding-left', prefixPad + '%');
         // Use absolute position to force onto same line - otherwise the buttons try to expand to full width and so start on a new line.
         $('.rrssb-prefix', this).css('position', 'absolute');
         var prefixHeight = rowsNeeded * orig.height / orig.fontSize;
