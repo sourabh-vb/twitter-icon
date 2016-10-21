@@ -2,7 +2,7 @@
 Social sharing buttons that you can drop into any website with attractive SVG-based icons, small download, and browser compatibility.
 RRSSB+ automatically adjusts to different screen sizes by tweaking sizes, splitting buttons evenly onto multiple rows and hiding the labels.
 
-The library offers consistenly styled buttons for all sites.  It avoids running scripts from each social site, with the inherent overheads and incosistent appearance of buttons.
+The library offers consistently styled buttons for all sites.  It avoids running scripts from each social site, with the inherent overheads and inconsistent appearance of buttons.
 
 Developed by [**AlbanyWeb**](http://www.albanyweb.co.uk/).
 Based on [**RRSSB**](https://github.com/kni-labs/rrssb) "Ridiculously Responsive Social Sharing Buttons" by [**KNI**](http://www.kurtnoble.com).

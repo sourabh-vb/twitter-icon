@@ -76,7 +76,7 @@
     }
 
     /**
-     * Main recalculte sizes function.
+     * Main recalculate sizes function.
      * $(this) points to an instance of .rrssb
      */
     var rrssbFix = function() {
@@ -98,23 +98,8 @@
       // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
       // However, the container can't shrink below the size of one button.
       // For small containers make sure we have small buttons.
-      // After changing this we need to let the browser recalculate then run again.
-      var mini = (containerWidth <= buttonWidth);
-      var lastMini = $(this).data('mini');
-      if (mini != lastMini) {
-        $(this).data('mini', mini);
-
-        if (mini) {
-          $('li', this).width('');
-          $(this).addClass('no-label');
-        }
-        else {
-          $('li', this).width(buttonWidth);
-        }
-
-        delayedFixAll(1);
-        return;
-      }
+      var cssWidth = (containerWidth < buttonWidth) ? '' : buttonWidth;
+      $('li', this).width(cssWidth);
 
       // Calculate widths.
       var availWidth = containerWidth / settings.shrink;
@@ -224,7 +209,7 @@
      * Ready function
      */
     $(document).ready(function() {
-        // Register event listners
+        // Register event listeners
         $('.rrssb-buttons a.popup').click(function popUp(e) {
             popupCenter($(this).attr('href'), $(this).find('.rrssb-text').html(), 580, 470);
             e.preventDefault();
