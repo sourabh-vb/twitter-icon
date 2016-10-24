@@ -33,7 +33,7 @@
 
       var checkedSettings = {};
       for (var param in schema) {
-        if (settings && settings[param] !== '') {
+        if (settings && !isNaN(parseFloat(settings[param]))) {
          checkedSettings[param] = Math.min(schema[param].max, Math.max(schema[param].min, settings[param]));
         }
         else {
@@ -104,27 +104,38 @@
       // Calculate widths.
       var availWidth = containerWidth / settings.shrink;
       var prefixWidth = orig.prefixWidth * settings.size;
-      if (prefixWidth <= containerWidth * settings.prefixReserve) {
-        availWidth -= prefixWidth;
-      }
-
-      var buttonsPerRow = Math.floor(availWidth / buttonWidth);
-      var rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
+      var availWidthButtons = (prefixWidth <= containerWidth * settings.prefixReserve) ? availWidth - prefixWidth : availWidth;
+      var buttonsPerRow = Math.floor(availWidthButtons / buttonWidth);
 
       // Fix labels.
-      if (rowsNeeded > settings.maxRows) {
+      if (buttonsPerRow * settings.maxRows < buttons) {
         $(this).addClass('no-label');
         // Without label, button is square so width equals original height.
         buttonWidth = orig.height * settings.size;
-        buttonsPerRow = Math.max(1, Math.floor(availWidth / buttonWidth));
-        rowsNeeded = Math.max(settings.minRows, Math.ceil(buttons / buttonsPerRow));
+        buttonsPerRow = Math.max(1, Math.floor(availWidthButtons / buttonWidth));
       }
       else {
         $(this).removeClass('no-label');
       }
 
+      // Take account of min rows.
+      // The actual number of rows may end up higher than the strict minimum.
+      // Calculate how many buttons per row would give min-1 rows and require one less.
+      // For 4 buttons and min 3 rows need max 1 button per row making 4 rows.
+      // For 5 buttons and min 3 rows need max 2 button per row making 3 rows.
+      // For 11 buttons and min 5 rows need max 2 buttons per row making 6 rows.
+      var maxButtonsPerRow = (settings.minRows > 1) ? Math.max(1, Math.ceil(buttons / (settings.minRows - 1)) - 1) : buttons;
+      buttonsPerRow = Math.min(buttonsPerRow, maxButtonsPerRow);
+
+      // Adjust buttons per row to keep rows evenly balanced.
+      // For 4 buttons and 3 buttons per row, it should be 2+2 not 3+1.
+      // For 11 buttons and 5 buttons per row, it should be 4+4+3 not 5+5+1.
+      buttonsPerRow = Math.ceil(buttons / Math.ceil(buttons / buttonsPerRow));
+
+      // Do the same for the max value as we compare the two later.
+      maxButtonsPerRow = Math.ceil(buttons / Math.ceil(buttons / maxButtonsPerRow));
+
       // Set max width.
-      buttonsPerRow = Math.ceil(buttons / rowsNeeded);
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
 
@@ -137,7 +148,7 @@
 
       // Fix font size.
       var scale = Math.min(1, containerWidth / desiredWidth);
-      if (rowsNeeded > settings.minRows) {
+      if (buttonsPerRow < maxButtonsPerRow) {
         scale = Math.min(scale, settings.regrow);
       }
 
@@ -156,6 +167,7 @@
         $('.rrssb-buttons', this).css('padding-left', prefixPad + '%');
         // Use absolute position to force onto same line - otherwise the buttons try to expand to full width and so start on a new line.
         $('.rrssb-prefix', this).css('position', 'absolute');
+        var rowsNeeded = Math.ceil(buttons / buttonsPerRow);
         var prefixHeight = rowsNeeded * orig.height / orig.fontSize;
         $('.rrssb-prefix', this).css('line-height', prefixHeight + 'em');
       }
