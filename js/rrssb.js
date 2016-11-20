@@ -152,12 +152,8 @@
         scale = Math.min(scale, settings.regrow);
       }
 
-      var fontSize = orig.fontSize * settings.size;
-      if (scale < 1) {
-        // Reduce font size.
-        // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
-        fontSize *= scale * 0.95;
-      }
+      // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
+      var fontSize = orig.fontSize * settings.size * scale * 0.95;
       $(this).css('font-size', fontSize + 'px');
 
       // Fix prefix.
