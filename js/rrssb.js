@@ -11,6 +11,7 @@
       minRows: {min: 1, max: 99, default: 1},
       maxRows: {min: 1, max: 99, default: 2},
       prefixReserve: {min: 0, max: 0.8, default: 0.3},
+      prefixHide: {min: 0.1, max: 10, default: 2},
     };
 
     /**
@@ -50,13 +51,16 @@
      * $(this) points to an instance of .rrssb
      */
     var rrssbInit = function() {
+      // Clone the prefix so we can find the width when the text does not wrap.
+      var $clone = $('.rrssb-prefix', this).clone().css({visibility: 'hidden', 'white-space': 'nowrap', display: 'inline'}).appendTo(this);
+
       // Store original values.
       var orig = {
         width: 0,
         buttons: 0,
         height: $('li', this).innerHeight(),
         fontSize: parseFloat($(this).css("font-size")),
-        prefixWidth: $('.rrssb-prefix', this).innerWidth(),
+        prefixWidth: $clone.innerWidth(),
       };
 
       $('li', this).each(function() {
@@ -65,6 +69,7 @@
       });
 
       $(this).data('orig', orig);
+      $clone.remove();
       return orig;
     }
 
@@ -138,6 +143,10 @@
       // Set max width.
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
+
+      // Hide the prefix entirely if it is too big.
+      var $prefixDisplay = (prefixWidth > availWidth * settings.prefixHide) ? 'none' : '';
+      $('.rrssb-prefix', this).css('display', $prefixDisplay);
 
       // Test if we can fit the prefix inline.  This may be the case even if we didn't reserve space for it.
       var desiredWidth = buttonWidth * buttonsPerRow + prefixWidth;
