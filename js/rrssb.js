@@ -1,5 +1,5 @@
 /*!
- Simple Responsive Social Sharing Buttons
+ Ridiculously Responsive Social Sharing Buttons Plus
 */
 
 +(function(window, $, undefined) {

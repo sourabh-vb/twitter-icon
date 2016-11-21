@@ -10,20 +10,21 @@
   "description": "Ridiculously Responsive Social Sharing Buttons Plus",
   "main": "js/rrssb.js",
   "keywords": [
-    "SRSSB",
-    "srssb",
-    "simple",
+    "RRSSB+",
+    "rrssb+",
+    "ridiculously",
     "responsive",
-    "sharing",
     "social",
+    "sharing",
     "buttons"
+    "plus",
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/AdamPS/rrssb-plus"
   },
   "license": "MIT",
-  "homepage": "http://www.albanyweb.co.uk/rrssb",
+  "homepage": "http://www.albanyweb.co.uk/rrssb-plus",
   "readme": "https://github.com/AdamPS/rrssb-plus/README.md",
   "devDependencies": {
     "gulp": "*",
