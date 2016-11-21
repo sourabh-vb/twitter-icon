@@ -4,7 +4,7 @@ RRSSB+ automatically adjusts to different screen sizes by tweaking sizes, splitt
 
 The library offers consistently styled buttons for all sites.  No 3rd-party scripts (such as from Facebook), with the inherent overheads and different button designs.
 
-![Two rows of buttons with prefix and label](https://www.drupal.org/files/rrssb_2x3.png) ⇔ ![Small buttons](https://www.drupal.org/files/rrssb_small_0.PNG) ⇔ ![Vertical align](https://www.drupal.org/files/rrssb_vertical.PNG)
+![Two rows of buttons with prefix and label](https://www.drupal.org/files/rrssb_2x3.png) &nbsp; ![Small buttons](https://www.drupal.org/files/rrssb_small_0.PNG) &nbsp; ![Vertical align](https://www.drupal.org/files/rrssb_vertical.PNG)
 
 Developed by [**AlbanyWeb**](http://www.albanyweb.co.uk/).
 Based on [**RRSSB**](https://github.com/kni-labs/rrssb) "Ridiculously Responsive Social Sharing Buttons" by [**KNI**](http://www.kurtnoble.com).
