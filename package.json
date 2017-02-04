@@ -3,9 +3,9 @@
   "version": "0.2.4",
   "author": "Adam Shepherd <adam@albanyweb.co.uk>",
   "contributors": [
-    "(Adam Shepherd <adam@albanyweb.co.uk>)",
-    "(Joshua Tuscan <hello@joshuatuscan.com>)",
-    "(Daniel Box <daniel@kurtnoble.com>)"
+    "Adam Shepherd <adam@albanyweb.co.uk>",
+    "Joshua Tuscan <hello@joshuatuscan.com>",
+    "Daniel Box <daniel@kurtnoble.com>"
   ],
   "description": "Ridiculously Responsive Social Sharing Buttons Plus",
   "main": "js/rrssb.js",
@@ -22,6 +22,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/AdamPS/rrssb-plus"
+  },
+  "bugs": {
+    "url": "https://github.com/AdamPS/rrssb-plus/issues"
   },
   "license": "MIT",
   "homepage": "http://www.albanyweb.co.uk/rrssb-plus",
