@@ -1,5 +1,6 @@
 {
   "name": "rrssb/rrssb-plus",
+  "type": "drupal-library",
   "authors": [
     {
       "name" : "Adam Shepherd",
@@ -31,5 +32,8 @@
     "docs": "https://github.com/AdamPS/rrssb-plus/README.md"
   },
   "license": "MIT",
-  "homepage": "http://www.albanyweb.co.uk/rrssb-plus"
+  "homepage": "http://www.albanyweb.co.uk/rrssb-plus",
+  "require": {
+    "composer/installers": "~1.0"
+  }
 }
