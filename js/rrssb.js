@@ -14,6 +14,8 @@
       prefixHide: {min: 0.1, max: 10, default: 2},
     };
 
+    var oldJQuery = false;
+
     /**
      * Public function to configure all sets of buttons on the page.
      */
@@ -53,6 +55,9 @@
     var rrssbInit = function() {
       // Clone the prefix so we can find the width when the text does not wrap.
       var $clone = $('.rrssb-prefix', this).clone().css({visibility: 'hidden', 'white-space': 'nowrap', display: 'inline'}).appendTo(this);
+
+      // Remove any whitespace between the buttons because the browser will display it, breaking the resizing.
+      $('ul').contents().filter(function() { return this.nodeType === Node.TEXT_NODE; }).remove();
 
       // Store original values.
       var orig = {
@@ -104,7 +109,13 @@
       // However, the container can't shrink below the size of one button.
       // For small containers make sure we have small buttons.
       var cssWidth = (containerWidth < buttonWidth) ? '' : buttonWidth;
-      $('li', this).width(cssWidth);
+      if (oldJQuery) {
+        // Prior to jQuery 1.8, there was no setter for innerWidth, but width setter was bugged and acted like innerWidth.
+        $('li', this).width(cssWidth);
+      }
+      else {
+        $('li', this).innerWidth(cssWidth);
+      }
 
       // Calculate widths.
       var availWidth = containerWidth / settings.shrink;
@@ -226,6 +237,12 @@
      * Ready function
      */
     $(document).ready(function() {
+        // Check for old jQuery < 1.8.
+        var verParts = $.fn.jquery.split('.');
+        if ((verParts[0] == 1) && (verParts[1] < 8)) {
+          oldJQuery = true;
+        }
+
         // Register event listeners
         $('.rrssb-buttons a.popup').click(function popUp(e) {
             popupCenter($(this).attr('href'), $(this).find('.rrssb-text').html(), 580, 470);
