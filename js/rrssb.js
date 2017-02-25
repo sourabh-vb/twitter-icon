@@ -14,7 +14,11 @@
       prefixHide: {min: 0.1, max: 10, default: 2},
     };
 
-    var oldJQuery = false;
+    var oldJQuery = function() {
+      // Check for old jQuery < 1.8.
+      var verParts = $.fn.jquery.split('.');
+      return ((verParts[0] == 1) && (verParts[1] < 8));
+    }();
 
     /**
      * Public function to configure all sets of buttons on the page.
@@ -237,12 +241,6 @@
      * Ready function
      */
     $(document).ready(function() {
-        // Check for old jQuery < 1.8.
-        var verParts = $.fn.jquery.split('.');
-        if ((verParts[0] == 1) && (verParts[1] < 8)) {
-          oldJQuery = true;
-        }
-
         // Register event listeners
         $('.rrssb-buttons a.popup').click(function popUp(e) {
             popupCenter($(this).attr('href'), $(this).find('.rrssb-text').html(), 580, 470);
