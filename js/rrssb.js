@@ -12,6 +12,7 @@
       maxRows: {min: 1, max: 99, default: 2},
       prefixReserve: {min: 0, max: 0.8, default: 0.3},
       prefixHide: {min: 0.1, max: 10, default: 2},
+      alignRight: {type: 'boolean', default: false},
     };
 
     var oldJQuery = function() {
@@ -40,11 +41,14 @@
 
       var checkedSettings = {};
       for (var param in schema) {
-        if (settings && !isNaN(parseFloat(settings[param]))) {
-         checkedSettings[param] = Math.min(schema[param].max, Math.max(schema[param].min, settings[param]));
-        }
-        else {
-          checkedSettings[param] = schema[param].default;
+        checkedSettings[param] = schema[param].default;
+        if (settings) {
+          if (schema[param].type == 'boolean') {
+            checkedSettings[param] = Boolean(settings[param]);
+          }
+          else if (!isNaN(parseFloat(settings[param]))) {
+            checkedSettings[param] = Math.min(schema[param].max, Math.max(schema[param].min, settings[param]));
+          }
         }
       }
 
@@ -201,12 +205,13 @@
       // Use a percentage so a small container doesn't inherit a huge pad after a radical rescale.
       // Allow a little extra to ensure rounding error doesn't accidentally spread buttons onto extra lines.
       desiredWidth *= scale * 1.02;
+      var paddingAttr = settings.alignRight ? 'padding-left' : 'padding-right';
       if (containerWidth > desiredWidth) {
         var padding = Math.floor(10000 * (containerWidth - desiredWidth) / containerWidth) / 100;
-        $(this).css('padding-right', padding + '%');
+        $(this).css(paddingAttr, padding + '%');
       }
       else {
-        $(this).css('padding-right', '');
+        $(this).css(paddingAttr, '');
       }
     };
 
