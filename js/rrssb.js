@@ -116,7 +116,7 @@
       // width set on each button ensures that the float is able to grow back up from no-labels to having labels again.
       // However, the container can't shrink below the size of one button.
       // For small containers make sure we have small buttons.
-      var cssWidth = (containerWidth < buttonWidth) ? '' : buttonWidth;
+      var cssWidth = (containerWidth < buttonWidth * settings.shrink) ? '' : buttonWidth;
       if (oldJQuery) {
         // Prior to jQuery 1.8, there was no setter for innerWidth, but width setter was bugged and acted like innerWidth.
         $('li', this).width(cssWidth);
