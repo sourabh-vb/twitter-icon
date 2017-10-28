@@ -23,6 +23,7 @@ and hard-coded into the page rather than being part of the library.
 - Configurable settings to control appearance.
 
 ## Performance changes
+- Use background image instead of inline SVG.  Gives smaller page sizes, reduced server load and smaller caches.
 - Smaller JS and CSS files for faster download.
 - Simpler script executes a lot less lines of code for smoother resizing.
 - Reduced DOM size: store working data as data() not attr().
