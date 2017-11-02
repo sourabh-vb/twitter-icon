@@ -26,7 +26,7 @@
      */
     window.rrssbConfigAll = function(settings) {
       $('.rrssb').each(function(){
-         $(this).rrssbConfig(settings);
+        $(this).rrssbConfig(settings);
       });
     }
 
