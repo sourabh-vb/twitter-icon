@@ -128,6 +128,16 @@
       // Calculate widths.
       var availWidth = containerWidth / settings.shrink;
       var prefixWidth = orig.prefixWidth * settings.size;
+
+      // Hide the prefix entirely if it is too big.
+      if (prefixWidth > availWidth * settings.prefixHide) {
+        prefixWidth = 0;
+        $('.rrssb-prefix', this).css('display', 'none');
+      }
+      else {
+        $('.rrssb-prefix', this).css('display', '');
+      }
+
       var availWidthButtons = (prefixWidth <= containerWidth * settings.prefixReserve) ? availWidth - prefixWidth : availWidth;
       var buttonsPerRow = Math.floor(availWidthButtons / buttonWidth);
 
@@ -162,10 +172,6 @@
       // Set max width.
       var percWidth = Math.floor(10000 / buttonsPerRow) / 100;
       $('li', this).css('max-width', percWidth + '%');
-
-      // Hide the prefix entirely if it is too big.
-      var $prefixDisplay = (prefixWidth > availWidth * settings.prefixHide) ? 'none' : '';
-      $('.rrssb-prefix', this).css('display', $prefixDisplay);
 
       // Test if we can fit the prefix inline.  This may be the case even if we didn't reserve space for it.
       var desiredWidth = buttonWidth * buttonsPerRow + prefixWidth;
