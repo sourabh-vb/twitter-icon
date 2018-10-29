@@ -182,10 +182,10 @@
       }
 
       // Fix font size.
-      // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
       var maxScale = (buttonsPerRow < maxButtonsPerRow) ? settings.regrow : 1
-      var scale = Math.min(maxScale, containerWidth * 0.95 / desiredWidth);
-      var fontSize = orig.fontSize * settings.size * scale;
+      var scale = Math.min(maxScale, containerWidth / desiredWidth);
+      // Reduce calculated value slightly as browser size calculations have some rounding and approximation.
+      var fontSize = orig.fontSize * settings.size * scale * 0.98;
       $(this).css('font-size', fontSize + 'px');
 
       // Fix prefix.
