@@ -1,4 +1,7 @@
 // Ridiculously Responsive Social Sharing Buttons Plus
+//
+// Compile command:
+//   node-sass --output-style compressed --source-map true scss/rrssb.scss css/rrssb.css
 
 // Button text colour
 $rrssb-txt:         #fff    !default;
@@ -99,7 +102,13 @@ $rrssb-border: (100% - $rrssb-icon-ratio)/2;
     }
 
     .rrssb-text {
-      display: none;
+      // Copied from Drupal .visually-hidden class.
+      position: absolute !important;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      width: 1px;
+      height: 1px;
+      word-wrap: normal;
     }
   }
 }
